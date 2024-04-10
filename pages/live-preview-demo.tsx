@@ -1,12 +1,12 @@
-import Contentstack, { Config, Entry } from 'contentstack';
+import Contentstack, { Config } from 'contentstack';
 
 const config: Config = {
   api_key: process.env.CONTENTSTACK_API_KEY||'',
   delivery_token: process.env.CONTENTSTACK_DELIVERY_TOKEN||'',
-  environment: process.env.CONTENTSTACK_ENVIRONMENT||''
+  environment: process.env.CONTENTSTACK_ENVIRONMENT||'',
 }
-console.log(JSON.stringify(config))
 const Stack = Contentstack.Stack(config);
+
 type Song = {
   title: string
 }
@@ -24,12 +24,33 @@ export default function Page({song}: props) {
 
   export async function getStaticProps(){
 
-    const entry = Stack.ContentType('songs').Entry("blt218c1230563a8110");
-    const result = await entry.fetch()
-    console.log(result)
-    const song = await result.json()
-    
-    return {
-        props: {song: {title: song.get('title')}},
+    try{
+      const result = await getEntry('song')
+      return {
+          props: {song: {title: result[0].title}},
+      }
+    }catch(e){
+      console.log(e)
+      return {props:{song:{title: 'NA'}}}
     }
   }
+
+
+  export const getEntry = (contentTypeUid: string) => {
+    return new Promise((resolve, reject) => {
+      const query = Stack.ContentType(contentTypeUid).Query();
+      query
+      .where('genre', 'fantasy')
+        .toJSON()
+        .find()
+        .then(
+          (result) => {
+            resolve(result[0]);
+          },
+          (error) => {
+            reject(error);
+          }
+        );
+    });
+  };
+  
