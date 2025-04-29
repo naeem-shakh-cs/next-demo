@@ -2,7 +2,7 @@
     "cache": {
         "cachePriming": {
             "urls": [
-                "/posts-with-odr/1",
+                "/posts-with-odr/1?test=123",
                 "/posts-with-odr/2"
             ]
         }
