@@ -46,7 +46,7 @@ export default function Page({post}: props) {
         props: {
             post
         },
-        revalidate: 10,
+        revalidate: 300,
     }
   }) satisfies GetStaticProps<{
   post: Post
