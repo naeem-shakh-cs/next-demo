@@ -1,0 +1,10 @@
+{
+    "cache": {
+        "cachePriming": {
+            "urls": [
+                "/posts-with-odr/1",
+                "/posts-with-odr/2"
+            ]
+        }
+    }
+}
