@@ -16,6 +16,7 @@ type Movie = {
 export default function Page({movies}: props) {
     return <div>
         <h1>Ironman</h1>
+        <h2>And spiderman</h2>
         <Image src={ironMan} alt='iron-man'/>
 
         <div>
